@@ -2,6 +2,10 @@
 <head>
   <meta charset="utf-8">
   <script src="js/sigma.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 
 </head>
@@ -9,6 +13,30 @@
 
   <div class="container">
     <div class="row">
+      <h2>Rdio Interactive Network Visualization</h2>
+      <br>
+
+      <h4>Overview</h4>
+
+      <p>The visualization below is a Directed Graph of Rdio users, connected by edges indicating if one user follows another. To gather the data I queried Rdio's API to retrieve the 1st and 2nd degree connections of RdioonRdio (Rdio US's username), and included all nodes with >10 followers within that group. I then used the Force Atlas algorithm on the graph, which iteratively causes nodes to be pulled by their edges and repulsed by other nodes' edges until they stabilize, rearranging the graph to have similar nodes as close to one another as possible.</p>
+      <br>
+
+      <h4>Characteristics of Graph</h4>
+
+      <p><strong>Eigenvector Centrality:</strong> Node size is a function of the Eigenvector Centrality of the nodes, which makes it easy to see which users are most influential (Pitchfork, Vice, Spin etc.)</p>
+
+      <p><strong>Modularity</strong>: I used community detection on the graph to break users into groups (shown by node color) - which was able to pretty well separate users into 4 relatively distinguishable cohorts that tended to follow one another:</p>
+
+      <ul>
+      <li>Red: major artists (eg. snoopdogg, OfMontreal, questlove, thieverycorp)</li>
+      <li>Blue: pop music media/labels (eg. Pitchfork, Rolling Stone, Vice)</li>
+      <li>White: indie/amateur artists and non-pop media (Carolinemusic, Strangetalkmusic)</li>
+      <li>Orange: regular users</li>
+      </ul>
+
+
+      <p>For users that don't fit into the category of their color, it provides interesting insight into their following behavior, and the same goes generally for a users placement in the graph (for example, how Spin Media is pulled far to the right by following many regular users and artists)</p>
+      <br>
 
   <div class="sigma-parent" id="sigma-example-parent">
     <div class="sigma-expand" id="sigma-example"></div>
@@ -19,10 +47,10 @@
   // Instanciate sigma.js and customize rendering :
   var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
     defaultLabelColor: '#fff',
-    defaultLabelSize: 14,
+    defaultLabelSize: 12,
     defaultLabelBGColor: '#fff',
     defaultLabelHoverColor: '#000',
-    labelThreshold: 6,
+    labelThreshold: 4,
     defaultEdgeType: 'arrow'//'curve'
   }).graphProperties({
     minNodeSize: 0.5,
